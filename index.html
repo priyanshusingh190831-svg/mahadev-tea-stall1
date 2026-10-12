@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5b2d18">
+<title>Mahadev Tea Stall | Hot Chai & Fresh Snacks</title>
+<style>
+:root{--brown:#5b2d18;--cream:#fff5e7;--orange:#e87924;--ink:#2c1b13;--muted:#765e50}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--cream);color:var(--ink)}
+header{background:linear-gradient(135deg,#4a2415,#7a3e20);color:white;padding:28px 18px 38px;text-align:center}
+.logo{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:#fff2d9;color:var(--brown);font-size:32px;margin:0 auto 12px;border:3px solid #e9a05e}
+h1{margin:0;font-size:clamp(28px,6vw,42px)}header p{margin:10px auto 0;max-width:620px;line-height:1.55;color:#ffe7d0}
+.pill{display:inline-block;margin-top:14px;background:var(--orange);color:white;padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700}
+main{max-width:1050px;margin:auto;padding:22px 15px 48px}.section-title{font-size:24px;color:var(--brown);margin:22px 0 13px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.item{background:white;border:1px solid #f0ddca;border-radius:16px;padding:15px;box-shadow:0 5px 18px #5b2d1810}
+.item h3{margin:0 0 5px;font-size:17px}.item p{margin:0;color:var(--muted);font-size:13px}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:13px;font-weight:750;color:var(--brown)}
+button{border:0;border-radius:10px;background:var(--orange);color:white;padding:10px 13px;font-weight:750;cursor:pointer}
+button:hover{filter:brightness(.94)}.qty{display:flex;align-items:center;gap:10px}.qty button{padding:5px 10px}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start;margin-top:26px}
+.panel{background:white;border:1px solid #f0ddca;border-radius:18px;padding:18px;box-shadow:0 5px 18px #5b2d1810}
+label{display:block;font-weight:650;font-size:13px;margin:12px 0 5px}input,textarea,select{width:100%;border:1px solid #dfc8b5;border-radius:10px;padding:12px;font:inherit;background:#fffdf9}
+textarea{min-height:76px;resize:vertical}.cartline{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #f2e4d8;font-size:14px}.total{display:flex;justify-content:space-between;font-size:19px;font-weight:800;margin:16px 0;color:var(--brown)}
+.submit{width:100%;padding:14px;font-size:16px}.hint{font-size:12px;color:var(--muted);line-height:1.5}.notice{display:none;padding:12px;border-radius:10px;margin-top:12px;font-size:14px}.notice.ok{display:block;background:#e7f6e9;color:#195b2a}.notice.err{display:block;background:#fff0e9;color:#8a2c12}
+footer{text-align:center;background:#3d2015;color:#ffe7d0;padding:22px 14px;font-size:13px;line-height:1.7}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.section-title{font-size:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">☕</div>
+  <h1>Mahadev Tea Stall</h1>
+  <p>मिट्टी की खुशबू, चाय का प्यार — कुल्हड़ वाली चाय का स्वाद बेमिसाल! ☕❤️<br>हर घूंट में देसी स्वाद, हर पल बने यादगार!</p>
+  <span class="pill">OPEN DAILY · 5:00 AM – 10:00 PM</span>
+</header>
+<main>
+  <h2 class="section-title">Our Menu</h2>
+  <div class="menu" id="menu"></div>
+  <div class="layout">
+    <section class="panel">
+      <h2 style="margin:0;color:var(--brown)">Your order</h2>
+      <div id="cart"><p class="hint">Add items from the menu to start your order.</p></div>
+      <div class="total"><span>Total</span><span id="total">₹0</span></div>
+      <form id="orderForm">
+        <label for="customer">Your name *</label><input id="customer" name="customer" required maxlength="80" placeholder="Enter your name">
+        <label for="phone">Phone number *</label><input id="phone" name="phone" required inputmode="tel" pattern="[0-9+\-\s]{8,18}" placeholder="Phone number">
+        <label for="fulfilment">Order type *</label><select id="fulfilment" name="fulfilment"><option>Pickup at stall</option><option>Delivery (confirm by phone)</option></select>
+        <label for="address">Address (for delivery)</label><textarea id="address" name="address" placeholder="House / area / landmark"></textarea>
+        <label for="notes">Extra instructions</label><textarea id="notes" name="notes" placeholder="Less spicy, no onion, etc."></textarea>
+        <button class="submit" type="submit">Place Order</button>
+        <div id="notice" class="notice" role="status"></div>
+        <p class="hint">Your order is sent to the stall for confirmation. Delivery and final charges should be confirmed by phone.</p>
+      </form>
+    </section>
+    <aside class="panel">
+      <h2 style="margin:0;color:var(--brown)">Visit us</h2>
+      <p>Opposite Sahani Guest House,<br>Samneghat, Varanasi, Uttar Pradesh 221005</p>
+      <p><strong>Hours:</strong> 5:00 AM – 10:00 PM</p>
+      <p><strong>Call / WhatsApp:</strong><br><a href="https://wa.me/919569644109" style="color:var(--brown)">+91 9569644109</a></p>
+      <p class="hint">Orders are not confirmed until the stall contacts you or confirms them directly.</p>
+    </aside>
+  </div>
+</main>
+<footer>☕ Mahadev Tea Stall · Fresh chai, tasty snacks, desi vibes.</footer>
+<script>
+const items = [
+ {id:"masala-chai",name:"Masala Chai",price:20,category:"Chai"},
+ {id:"kulhad-chai",name:"Special Kulhad Chai",price:30,category:"Chai"},
+ {id:"elaichi-chai",name:"Elaichi Chai",price:25,category:"Chai"},
+ {id:"adrak-chai",name:"Adrak Chai",price:25,category:"Chai"},
+ {id:"veg-maggi",name:"Veg Maggi",price:40,category:"Maggi"},
+ {id:"cheese-maggi",name:"Cheese Maggi",price:60,category:"Maggi"},
+ {id:"masala-maggi",name:"Masala Maggi",price:40,category:"Maggi"},
+ {id:"steamed-momos-20",name:"Steamed Momos (small)",price:20,category:"Momos"},
+ {id:"steamed-momos-40",name:"Steamed Momos (large)",price:40,category:"Momos"},
+ {id:"fried-momos-30",name:"Fried Momos (small)",price:30,category:"Momos"},
+ {id:"fried-momos-50",name:"Fried Momos (large)",price:50,category:"Momos"},
+ {id:"veg-sandwich",name:"Veg Sandwich",price:40,category:"Quick Bites"},
+ {id:"cheese-sandwich",name:"Cheese Sandwich",price:60,category:"Quick Bites"},
+ {id:"samosa",name:"Aloo Samosa",price:15,category:"Quick Bites"},
+ {id:"bread-pakoda",name:"Bread Pakoda",price:20,category:"Quick Bites"},
+ {id:"cold-drink",name:"Cold Drink",price:20,category:"Cold Drinks"},
+ {id:"water",name:"Mineral Water",price:20,category:"Cold Drinks"},
+ {id:"lemon-soda",name:"Lemon Soda",price:30,category:"Cold Drinks"}
+];
+const cart = {};
+const rupees = n => "₹" + n;
+function renderMenu(){
+ const root=document.getElementById("menu"); root.innerHTML="";
+ let current="";
+ items.forEach(item=>{
+   if(item.category!==current){current=item.category;const heading=document.createElement("div");heading.style.gridColumn="1/-1";heading.innerHTML='<h3 style="color:var(--muted);margin:10px 0 0">'+current+'</h3>';root.appendChild(heading)}
+   const card=document.createElement("article");card.className="item";
+   card.innerHTML=`<h3>${item.name}</h3><p>Freshly prepared at Mahadev Tea Stall</p><div class="price-row"><span>${rupees(item.price)}</span><button type="button" aria-label="Add ${item.name}">Add +</button></div>`;
+   card.querySelector("button").addEventListener("click",()=>{cart[item.id]=(cart[item.id]||0)+1;renderCart()});root.appendChild(card);
+ });
+}
+function renderCart(){
+ const root=document.getElementById("cart"); const chosen=items.filter(i=>cart[i.id]);
+ if(!chosen.length){root.innerHTML='<p class="hint">Add items from the menu to start your order.</p>'}
+ else {root.innerHTML="";chosen.forEach(i=>{const line=document.createElement("div");line.className="cartline";line.innerHTML=`<span>${i.name}<br><small>${rupees(i.price)} each</small></span><span class="qty"><button type="button" aria-label="Remove one ${i.name}">−</button><b>${cart[i.id]}</b><button type="button" aria-label="Add one ${i.name}">+</button></span><b>${rupees(i.price*cart[i.id])}</b>`;const bs=line.querySelectorAll("button");bs[0].onclick=()=>{cart[i.id]--;if(cart[i.id]<=0)delete cart[i.id];renderCart()};bs[1].onclick=()=>{cart[i.id]++;renderCart()};root.appendChild(line)})}
+ document.getElementById("total").textContent=rupees(chosen.reduce((s,i)=>s+i.price*cart[i.id],0));
+}
+document.getElementById("orderForm").addEventListener("submit",async e=>{
+ e.preventDefault();const notice=document.getElementById("notice");notice.className="notice";notice.textContent="";
+ const chosen=items.filter(i=>cart[i.id]).map(i=>({name:i.name,quantity:cart[i.id],price:i.price,subtotal:i.price*cart[i.id]}));
+ if(!chosen.length){notice.className="notice err";notice.textContent="Please add at least one item.";return}
+ const data={customer:document.getElementById("customer").value.trim(),phone:document.getElementById("phone").value.trim(),fulfilment:document.getElementById("fulfilment").value,address:document.getElementById("address").value.trim(),notes:document.getElementById("notes").value.trim(),items:chosen,total:chosen.reduce((s,i)=>s+i.subtotal,0)};
+ const btn=e.submitter;btn.disabled=true;btn.textContent="Sending order…";
+ try{
+  const response=await fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  const result=await response.json();
+  if(!response.ok||!result.ok)throw new Error(result.error||"Could not send order.");
+  notice.className="notice ok";notice.textContent="Order sent! The stall will contact you to confirm it.";
+  Object.keys(cart).forEach(k=>delete cart[k]);renderCart();e.target.reset();
+ }catch(err){notice.className="notice err";notice.textContent="Order could not be sent. Please call/WhatsApp +91 9569644109. ("+err.message+")"}
+ finally{btn.disabled=false;btn.textContent="Place Order"}
+});
+renderMenu();renderCart();
+</script>
+</body>
+</html>
